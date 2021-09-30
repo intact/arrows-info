@@ -12,7 +12,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,7 +39,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
 	}
 
 	@Shadow
-	private void renderHotbarItem(int x, int y, float tickDelta, PlayerEntity player, ItemStack stack, int seed) {
+	private void renderHotbarItem(int x, int y, float tickDelta, PlayerEntity player, ItemStack stack) {
 	}
 
 	@Inject(method = "render", at = @At("RETURN"))
@@ -65,9 +64,8 @@ public abstract class InGameHudMixin extends DrawableHelper {
 			return;
 		}
 
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		this.client.getTextureManager().bindTexture(WIDGETS_TEXTURE);
 
 		Arm arm = player.getMainArm().getOpposite();
 		int x;
@@ -88,9 +86,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
 		RenderSystem.defaultBlendFunc();
 
 		if (arm == Arm.LEFT) {
-			this.renderHotbarItem(x + 3, y + 4, tickDelta, player, arrows, 1);
+			this.renderHotbarItem(x + 3, y + 4, tickDelta, player, arrows);
 		} else {
-			this.renderHotbarItem(x + 10, y + 4, tickDelta, player, arrows, 1);
+			this.renderHotbarItem(x + 10, y + 4, tickDelta, player, arrows);
 		}
 
 		RenderSystem.disableBlend();
