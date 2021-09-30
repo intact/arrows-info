@@ -2,4 +2,4 @@
 
 Shows currently used arrows for bow and crossbow
 
-![Screenshot](https://github.com/intact/arrows-info/blob/main/screentshot-1.png)
+![Screenshot](https://github.com/intact/arrows-info/blob/main/screenshot-1.png)
