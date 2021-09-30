@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "chrono.mods.arrows.mixin",
+	"compatibilityLevel": "JAVA_16",
+	"client": [
+		"InGameHudMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
