@@ -14,7 +14,6 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Arm;
@@ -57,7 +56,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
 
 		ItemStack offHandStack = player.getOffHandStack();
 
-		ItemStack arrows = player.getArrowType(player.getEquippedStack(EquipmentSlot.MAINHAND));
+		ItemStack arrows = player.getArrowType(player.getMainHandStack());
 		if (arrows.isEmpty()) {
 			arrows = player.getArrowType(offHandStack);
 		}
