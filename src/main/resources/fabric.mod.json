@@ -10,7 +10,7 @@
 	"contact": {
 		"sources": "https://github.com/intact/arrows-info"
 	},
-	"license": "GPL-3",
+	"license": "GPL-3+",
 	"icon": "assets/cr-arrows-info/icon.png",
 	"entrypoints": {
 		"client": [
