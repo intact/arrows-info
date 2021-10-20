@@ -18,7 +18,7 @@
 		]
 	},
 	"mixins": [
-		"arrows.mixins.json"
+		"cr-arrows-info.mixins.json"
 	],
 	"depends": {
 		"minecraft": ">=1.16.5",
