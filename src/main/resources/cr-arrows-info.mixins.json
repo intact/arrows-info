@@ -4,7 +4,7 @@
 	"package": "chrono.mods.arrows.mixin",
 	"compatibilityLevel": "JAVA_16",
 	"client": [
-		"InGameHudMixin"
+		"GuiMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
