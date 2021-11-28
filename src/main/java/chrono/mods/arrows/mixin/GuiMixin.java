@@ -35,7 +35,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameType;
 
 @Mixin(Gui.class)
 public abstract class GuiMixin extends GuiComponent {
@@ -59,12 +58,8 @@ public abstract class GuiMixin extends GuiComponent {
 	private void renderSlot(int x, int y, float partialTick, Player player, ItemStack stack, int seed) {
 	}
 
-	@Inject(method = "render", at = @At("RETURN"))
-	private void render(PoseStack pose, float partialTick, CallbackInfo ci) {
-		if (this.minecraft.options.hideGui || this.minecraft.gameMode.getPlayerMode() == GameType.SPECTATOR) {
-			return;
-		}
-
+	@Inject(method = "renderHotbar", at = @At("RETURN"))
+	private void cr$renderHotbar(float partialTick, PoseStack pose, CallbackInfo ci) {
 		Player player = this.getCameraPlayer();
 		if (player == null) {
 			return;
