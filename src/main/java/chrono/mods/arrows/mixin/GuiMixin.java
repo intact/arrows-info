@@ -86,11 +86,14 @@ public abstract class GuiMixin extends GuiComponent {
 		}
 		int y = this.screenHeight - 23;
 
+		int oldBlitOffset = this.getBlitOffset();
+		this.setBlitOffset(-90);
 		if (arm == HumanoidArm.LEFT) {
 			this.blit(pose, x, y, 24, 22, 29, 24);
 		} else {
 			this.blit(pose, x, y, 53, 22, 29, 24);
 		}
+		this.setBlitOffset(oldBlitOffset);
 
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
