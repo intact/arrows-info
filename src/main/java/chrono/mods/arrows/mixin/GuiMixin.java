@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package chrono.mods.arrows.mixin;
 
+import chrono.mods.arrows.config.ArrowsConfig;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -77,12 +79,24 @@ public abstract class GuiMixin extends GuiComponent {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.minecraft.getTextureManager().bind(WIDGETS_LOCATION);
 
-		HumanoidArm arm = player.getMainArm().getOpposite();
+		ArrowsConfig.Placement placement = ArrowsConfig.placement;
+
+		HumanoidArm arm = player.getMainArm();
+		if (placement == ArrowsConfig.Placement.OFFHAND) {
+			arm = arm.getOpposite();
+		}
+
 		int x;
 		if (arm == HumanoidArm.LEFT) {
-			x = this.screenWidth / 2 - 91 - 29 - (offHandStack.isEmpty() ? 0 : 23);
+			x = this.screenWidth / 2 - 91 - 29;
+			if (placement == ArrowsConfig.Placement.OFFHAND && !offHandStack.isEmpty()) {
+				x -= 23;
+			}
 		} else {
-			x = this.screenWidth / 2 + 91 + (offHandStack.isEmpty() ? 0 : 23);
+			x = this.screenWidth / 2 + 91;
+			if (placement == ArrowsConfig.Placement.OFFHAND && !offHandStack.isEmpty()) {
+				x += 23;
+			}
 		}
 		int y = this.screenHeight - 23;
 
