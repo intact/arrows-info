@@ -40,7 +40,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-@Mixin(Gui.class)
+@Mixin(value = Gui.class, priority = 790)
 public abstract class GuiMixin extends GuiComponent {
 	@Shadow
 	@Final
