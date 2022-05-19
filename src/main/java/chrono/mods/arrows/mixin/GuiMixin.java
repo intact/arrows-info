@@ -26,6 +26,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.fabricmc.loader.api.FabricLoader;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -100,7 +102,11 @@ public abstract class GuiMixin extends GuiComponent {
 				x += 23;
 			}
 		}
+
 		int y = this.screenHeight - 23;
+		if (FabricLoader.getInstance().getObjectShare().get("raised:distance") instanceof Integer distance) {
+			y -= distance;
+		}
 
 		int oldBlitOffset = this.getBlitOffset();
 		this.setBlitOffset(-90);
