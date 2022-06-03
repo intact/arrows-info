@@ -29,6 +29,11 @@ processResources {
 	exclude "**/*.svg"
 }
 
+tasks.withType(AbstractArchiveTask).configureEach {
+	preserveFileTimestamps = false
+	reproducibleFileOrder = true
+}
+
 tasks.withType(JavaCompile).configureEach {
 	// Minecraft 1.17 (21w19a) upwards uses Java 16.
 	it.options.release = 16
