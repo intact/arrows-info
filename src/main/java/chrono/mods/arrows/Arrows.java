@@ -17,14 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 package chrono.mods.arrows;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import net.fabricmc.api.ClientModInitializer;
 
 public class Arrows implements ClientModInitializer {
 	public static String MODID = "cr-arrows-info";
-	public static Logger LOGGER = LogManager.getLogger("ArrowsInfo");
+	public static Logger LOGGER = LoggerFactory.getLogger("ArrowsInfo");
 
 	@Override
 	public void onInitializeClient() {
