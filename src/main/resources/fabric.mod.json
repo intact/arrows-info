@@ -21,7 +21,7 @@
 		"cr-arrows-info.mixins.json"
 	],
 	"depends": {
-		"minecraft": "1.18.x",
-		"fabricloader": ">=0.12.0"
+		"minecraft": "1.19.x",
+		"fabricloader": ">=0.14.6"
 	}
 }
