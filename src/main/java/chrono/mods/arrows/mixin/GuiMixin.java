@@ -104,7 +104,10 @@ public abstract class GuiMixin extends GuiComponent {
 		}
 
 		int y = this.screenHeight - 23;
-		if (FabricLoader.getInstance().getObjectShare().get("raised:distance") instanceof Integer distance) {
+		if (FabricLoader.getInstance().getObjectShare().get("raised:hud") instanceof Integer distance) {
+			// for Raised 1.2.0+
+			y -= distance;
+		} else if (FabricLoader.getInstance().getObjectShare().get("raised:distance") instanceof Integer distance) {
 			y -= distance;
 		}
 
