@@ -111,6 +111,9 @@ public abstract class GuiMixin extends GuiComponent {
 			y -= distance;
 		}
 
+		RenderSystem.defaultBlendFunc();
+		RenderSystem.enableBlend();
+
 		int oldBlitOffset = this.getBlitOffset();
 		this.setBlitOffset(-90);
 		if (arm == HumanoidArm.LEFT) {
@@ -119,9 +122,6 @@ public abstract class GuiMixin extends GuiComponent {
 			this.blit(pose, x, y, 53, 22, 29, 24);
 		}
 		this.setBlitOffset(oldBlitOffset);
-
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
 
 		if (arm == HumanoidArm.LEFT) {
 			this.renderSlot(x + 3, y + 4, partialTick, player, arrows, 1);
