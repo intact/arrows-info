@@ -59,7 +59,7 @@ public abstract class GuiMixin extends GuiComponent {
 	}
 
 	@Shadow
-	private void renderSlot(int x, int y, float partialTick, Player player, ItemStack stack, int seed) {
+	private void renderSlot(PoseStack pose, int x, int y, float partialTick, Player player, ItemStack stack, int seed) {
 	}
 
 	@Inject(method = "renderHotbar", at = @At("RETURN"))
@@ -114,19 +114,19 @@ public abstract class GuiMixin extends GuiComponent {
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableBlend();
 
-		int oldBlitOffset = this.getBlitOffset();
-		this.setBlitOffset(-90);
+		pose.pushPose();
+		pose.translate(0.0F, 0.0F, -90.0F);
 		if (arm == HumanoidArm.LEFT) {
-			this.blit(pose, x, y, 24, 22, 29, 24);
+			blit(pose, x, y, 24, 22, 29, 24);
 		} else {
-			this.blit(pose, x, y, 53, 22, 29, 24);
+			blit(pose, x, y, 53, 22, 29, 24);
 		}
-		this.setBlitOffset(oldBlitOffset);
+		pose.popPose();
 
 		if (arm == HumanoidArm.LEFT) {
-			this.renderSlot(x + 3, y + 4, partialTick, player, arrows, 1);
+			this.renderSlot(pose, x + 3, y + 4, partialTick, player, arrows, 1);
 		} else {
-			this.renderSlot(x + 10, y + 4, partialTick, player, arrows, 1);
+			this.renderSlot(pose, x + 10, y + 4, partialTick, player, arrows, 1);
 		}
 
 		RenderSystem.disableBlend();
