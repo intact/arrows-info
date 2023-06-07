@@ -29,19 +29,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.fabricmc.loader.api.FabricLoader;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 @Mixin(value = Gui.class, priority = 790)
-public abstract class GuiMixin extends GuiComponent {
+public abstract class GuiMixin {
 	@Shadow
 	@Final
 	private static ResourceLocation WIDGETS_LOCATION;
@@ -59,11 +57,12 @@ public abstract class GuiMixin extends GuiComponent {
 	}
 
 	@Shadow
-	private void renderSlot(PoseStack pose, int x, int y, float partialTick, Player player, ItemStack stack, int seed) {
+	private void renderSlot(GuiGraphics gui, int x, int y, float partialTick, Player player, ItemStack stack,
+			int seed) {
 	}
 
 	@Inject(method = "renderHotbar", at = @At("RETURN"))
-	private void cr$renderHotbar(float partialTick, PoseStack pose, CallbackInfo ci) {
+	private void cr$renderHotbar(float partialTick, GuiGraphics gui, CallbackInfo ci) {
 		Player player = this.getCameraPlayer();
 		if (player == null) {
 			return;
@@ -78,10 +77,6 @@ public abstract class GuiMixin extends GuiComponent {
 		if (arrows.isEmpty() || arrows == offHandStack) {
 			return;
 		}
-
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
 
 		ArrowsConfig.Placement placement = ArrowsConfig.placement;
 
@@ -114,19 +109,19 @@ public abstract class GuiMixin extends GuiComponent {
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableBlend();
 
-		pose.pushPose();
-		pose.translate(0.0F, 0.0F, -90.0F);
+		gui.pose().pushPose();
+		gui.pose().translate(0.0F, 0.0F, -90.0F);
 		if (arm == HumanoidArm.LEFT) {
-			blit(pose, x, y, 24, 22, 29, 24);
+			gui.blit(WIDGETS_LOCATION, x, y, 24, 22, 29, 24);
 		} else {
-			blit(pose, x, y, 53, 22, 29, 24);
+			gui.blit(WIDGETS_LOCATION, x, y, 53, 22, 29, 24);
 		}
-		pose.popPose();
+		gui.pose().popPose();
 
 		if (arm == HumanoidArm.LEFT) {
-			this.renderSlot(pose, x + 3, y + 4, partialTick, player, arrows, 1);
+			this.renderSlot(gui, x + 3, y + 4, partialTick, player, arrows, 1);
 		} else {
-			this.renderSlot(pose, x + 10, y + 4, partialTick, player, arrows, 1);
+			this.renderSlot(gui, x + 10, y + 4, partialTick, player, arrows, 1);
 		}
 
 		RenderSystem.disableBlend();
