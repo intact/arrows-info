@@ -42,7 +42,10 @@ import net.minecraft.world.item.ItemStack;
 public abstract class GuiMixin {
 	@Shadow
 	@Final
-	private static ResourceLocation WIDGETS_LOCATION;
+	private static ResourceLocation HOTBAR_OFFHAND_LEFT_SPRITE;
+	@Shadow
+	@Final
+	private static ResourceLocation HOTBAR_OFFHAND_RIGHT_SPRITE;
 	@Shadow
 	@Final
 	private Minecraft minecraft;
@@ -112,9 +115,9 @@ public abstract class GuiMixin {
 		gui.pose().pushPose();
 		gui.pose().translate(0.0F, 0.0F, -90.0F);
 		if (arm == HumanoidArm.LEFT) {
-			gui.blit(WIDGETS_LOCATION, x, y, 24, 22, 29, 24);
+			gui.blitSprite(HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24);
 		} else {
-			gui.blit(WIDGETS_LOCATION, x, y, 53, 22, 29, 24);
+			gui.blitSprite(HOTBAR_OFFHAND_RIGHT_SPRITE, x, y, 29, 24);
 		}
 		gui.pose().popPose();
 
