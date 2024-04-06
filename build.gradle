@@ -16,7 +16,7 @@ dependencies {
 }
 
 base {
-	archivesName = "${project.archives_base_name}-fabric"
+	archivesName = "${project.archives_name}-fabric"
 }
 
 processResources {
@@ -58,7 +58,7 @@ jar {
 // configure the maven publication
 publishing {
 	publications {
-		mavenJava(MavenPublication) {
+		create("mavenJava", MavenPublication) {
 			from components.java
 		}
 	}
