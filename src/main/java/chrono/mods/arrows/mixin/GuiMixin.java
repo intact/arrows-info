@@ -49,10 +49,6 @@ public abstract class GuiMixin {
 	@Shadow
 	@Final
 	private Minecraft minecraft;
-	@Shadow
-	private int screenHeight;
-	@Shadow
-	private int screenWidth;
 
 	@Shadow
 	private Player getCameraPlayer() {
@@ -64,8 +60,8 @@ public abstract class GuiMixin {
 			int seed) {
 	}
 
-	@Inject(method = "renderHotbar", at = @At("RETURN"))
-	private void cr$renderHotbar(float partialTick, GuiGraphics gui, CallbackInfo ci) {
+	@Inject(method = "renderItemHotbar", at = @At("RETURN"))
+	private void cr$renderHotbar(GuiGraphics gui, float partialTick, CallbackInfo ci) {
 		Player player = this.getCameraPlayer();
 		if (player == null) {
 			return;
@@ -90,22 +86,19 @@ public abstract class GuiMixin {
 
 		int x;
 		if (arm == HumanoidArm.LEFT) {
-			x = this.screenWidth / 2 - 91 - 29;
+			x = gui.guiWidth() / 2 - 91 - 29;
 			if (placement == ArrowsConfig.Placement.OFFHAND && !offHandStack.isEmpty()) {
 				x -= 23;
 			}
 		} else {
-			x = this.screenWidth / 2 + 91;
+			x = gui.guiWidth() / 2 + 91;
 			if (placement == ArrowsConfig.Placement.OFFHAND && !offHandStack.isEmpty()) {
 				x += 23;
 			}
 		}
 
-		int y = this.screenHeight - 23;
+		int y = gui.guiHeight() - 23;
 		if (FabricLoader.getInstance().getObjectShare().get("raised:hud") instanceof Integer distance) {
-			// for Raised 1.2.0+
-			y -= distance;
-		} else if (FabricLoader.getInstance().getObjectShare().get("raised:distance") instanceof Integer distance) {
 			y -= distance;
 		}
 
