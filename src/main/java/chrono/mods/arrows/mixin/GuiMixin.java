@@ -30,6 +30,7 @@ import net.fabricmc.loader.api.FabricLoader;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -56,12 +57,12 @@ public abstract class GuiMixin {
 	}
 
 	@Shadow
-	private void renderSlot(GuiGraphics gui, int x, int y, float partialTick, Player player, ItemStack stack,
+	private void renderSlot(GuiGraphics gui, int x, int y, DeltaTracker timer, Player player, ItemStack stack,
 			int seed) {
 	}
 
 	@Inject(method = "renderItemHotbar", at = @At("RETURN"))
-	private void cr$renderHotbar(GuiGraphics gui, float partialTick, CallbackInfo ci) {
+	private void cr$renderHotbar(GuiGraphics gui, DeltaTracker timer, CallbackInfo ci) {
 		Player player = this.getCameraPlayer();
 		if (player == null) {
 			return;
@@ -115,9 +116,9 @@ public abstract class GuiMixin {
 		gui.pose().popPose();
 
 		if (arm == HumanoidArm.LEFT) {
-			this.renderSlot(gui, x + 3, y + 4, partialTick, player, arrows, 1);
+			this.renderSlot(gui, x + 3, y + 4, timer, player, arrows, 1);
 		} else {
-			this.renderSlot(gui, x + 10, y + 4, partialTick, player, arrows, 1);
+			this.renderSlot(gui, x + 10, y + 4, timer, player, arrows, 1);
 		}
 
 		RenderSystem.disableBlend();
