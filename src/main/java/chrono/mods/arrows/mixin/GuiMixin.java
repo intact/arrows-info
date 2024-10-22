@@ -32,6 +32,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
@@ -104,9 +105,9 @@ public abstract class GuiMixin {
 		gui.pose().pushPose();
 		gui.pose().translate(0.0F, 0.0F, -90.0F);
 		if (arm == HumanoidArm.LEFT) {
-			gui.blitSprite(HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24);
+			gui.blitSprite(RenderType::guiTextured, HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24);
 		} else {
-			gui.blitSprite(HOTBAR_OFFHAND_RIGHT_SPRITE, x, y, 29, 24);
+			gui.blitSprite(RenderType::guiTextured, HOTBAR_OFFHAND_RIGHT_SPRITE, x, y, 29, 24);
 		}
 		gui.pose().popPose();
 
