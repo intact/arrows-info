@@ -26,8 +26,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.fabricmc.loader.api.FabricLoader;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.DeltaTracker;
@@ -99,9 +97,6 @@ public abstract class GuiMixin {
 		}
 
 		int y = gui.guiHeight() - 23;
-		if (FabricLoader.getInstance().getObjectShare().get("raised:hud") instanceof Integer distance) {
-			y -= distance;
-		}
 
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableBlend();
